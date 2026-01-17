@@ -1,0 +1,34 @@
+name: Manual Workflow
+
+# 수동 실행 트리거
+on:
+  workflow_dispatch:  # 수동 실행 트리거
+    inputs:  # 사용자 입력 받기
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      message:
+        description: 'Deployment message'
+        required: false
+        default: 'Manual deployment'
+
+# 작업 정의
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show inputs
+        run: |
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Message: ${{ inputs.message }}"
+      
+      - name: Deploy
+        run: |
+          echo "Deploying to ${{ inputs.environment }}..."
+          echo "${{ inputs.message }}"
+

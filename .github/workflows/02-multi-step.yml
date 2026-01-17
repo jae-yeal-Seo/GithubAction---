@@ -1,0 +1,32 @@
+name: Multi-Step Workflow
+
+# 트리거: main 브랜치에 푸시될 때 실행
+on:
+  push:
+    branches: [ main ]
+
+# 작업 정의
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1단계: 코드 체크아웃
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      # 2단계: 환경 정보 출력
+      - name: Show environment
+        run: |
+          echo "Running on: ${{ runner.os }}"
+          echo "Node version: $(node --version)"
+          echo "Current directory: $(pwd)"
+      
+      # 3단계: 파일 목록 출력
+      - name: List files
+        run: ls -la
+      
+      # 4단계: 완료 메시지
+      - name: Complete
+        run: echo "All steps completed!"
+

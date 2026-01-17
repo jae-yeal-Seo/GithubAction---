@@ -1,0 +1,32 @@
+name: Sequential Jobs Workflow
+
+# 트리거: main 브랜치에 푸시될 때 실행
+on:
+  push:
+    branches: [ main ]
+
+# 순차 실행 작업 정의
+jobs:
+  # 첫 번째 작업
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        run: echo "Setting up environment..."
+  
+  # 두 번째 작업 (setup 완료 후 실행)
+  build:
+    needs: setup  # setup 작업이 완료되어야 실행
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: echo "Building application..."
+  
+  # 세 번째 작업 (build 완료 후 실행)
+  deploy:
+    needs: build  # build 작업이 완료되어야 실행
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: echo "Deploying application..."
+

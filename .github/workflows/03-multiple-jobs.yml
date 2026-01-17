@@ -1,0 +1,36 @@
+name: Multiple Jobs Workflow
+
+# 트리거: main 브랜치에 푸시될 때 실행
+on:
+  push:
+    branches: [ main ]
+
+# 여러 작업 정의 (병렬 실행)
+jobs:
+  # 작업 1: Linux에서 실행
+  job-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Linux Job
+        run: |
+          echo "Running on Linux"
+          uname -a
+  
+  # 작업 2: Windows에서 실행
+  job-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Windows Job
+        run: |
+          echo "Running on Windows"
+          echo %OS%
+  
+  # 작업 3: macOS에서 실행
+  job-macos:
+    runs-on: macos-latest
+    steps:
+      - name: macOS Job
+        run: |
+          echo "Running on macOS"
+          sw_vers
+
