@@ -4,6 +4,7 @@ name: Simple Hello Workflow
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 # 작업 정의
 jobs:
